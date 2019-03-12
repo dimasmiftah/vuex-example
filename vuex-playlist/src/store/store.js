@@ -24,10 +24,19 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-        reducePrice : state => {
+        //jangan simpen fungsi asyncronous disini
+        reducePrice : (state,payload) => {
             state.products.forEach(product => {
-                product.price -= 1;
+                product.price -= payload;
             });;
+        }
+    },
+    actions: {
+        //untuk fungsi asyncronous, walaupun tidak memakai fungsi asyncronous lebih baik pakai actions
+        reducePrice: (context,payload) => {
+            setTimeout(function () {
+                context.commit('reducePrice',payload)
+            },2000)
         }
     }
 })
